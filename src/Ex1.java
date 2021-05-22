@@ -9,7 +9,7 @@ import static java.util.Collections.reverse;
 public class Ex1 {
 
     public static void main(String[] args) throws FileNotFoundException {
-        File f = new File("input3.txt");
+        File f = new File("input.txt");
         Scanner sc = new Scanner(f);
         int index = 0;
         String Algo_type = ""; // stores the algorithm type
