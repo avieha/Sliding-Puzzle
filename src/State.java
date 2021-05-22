@@ -1,16 +1,16 @@
-package src;
-
 import java.util.Arrays;
 
-public class State {
+public class State implements Comparable<State> {
 
     private int cost;
-    private int produced=0;
+    private int produced = 0;
     private String[][] puzzle;
     private String move_made;
     private State father;
     private boolean visited;
     private String[] index; // ["2,3","6,9"]
+    private int F;
+    private int H;
 
     State(String[][] p, int cost, State father, String move_made, String[] idx) {
         this.puzzle = p;
@@ -39,12 +39,40 @@ public class State {
             return true;
         }
         State s = (State) obj;
-        return Arrays.deepEquals(this.puzzle,s.puzzle);
+        return Arrays.deepEquals(this.puzzle, s.puzzle);
     }
 
     @Override
     public int hashCode() {
         return Arrays.deepHashCode(puzzle);
+    }
+
+    public void setH(State Goal) {
+        for (int i = 0; i < puzzle.length; i++) {
+            for (int j = 0; j < puzzle[0].length; j++) {
+                if (!puzzle[i][j].equals("_")) {
+                    for (int k = 0; k < puzzle.length; k++) {
+                        for (int l = 0; l < puzzle[0].length; l++) {
+                            if (Goal.getPuzzle()[k][l].equals(puzzle[i][j])) {
+                                this.H += 3*(Math.abs(k - i)+Math.abs(l - j));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public int getH() {
+        return H;
+    }
+
+    public void setF() {
+        this.F = this.cost + this.getH();
+    }
+
+    public int getF() {
+        return F;
     }
 
     public String getMove() {
@@ -59,8 +87,8 @@ public class State {
         return father;
     }
 
-    public void setProduced(int p){
-        this.produced=p;
+    public void setProduced(int p) {
+        this.produced = p;
     }
 
     public int getProduced() {
@@ -89,5 +117,14 @@ public class State {
 
     public String[] getIndex() {
         return index;
+    }
+
+    @Override
+    public int compareTo(State o) {
+        if (this.getF() > o.getF())
+            return 1;
+        if (this.getF() < o.getF())
+            return -1;
+        return 0;
     }
 }
