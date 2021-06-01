@@ -17,7 +17,7 @@ and:
 java Ex1 input.txt
 ```
 
-in input.txt you can customize your own board, with start state and goal state(with one or two empty blocks), and of course in the **size**
+in input.txt you can customize your own board, with start state and goal state (with one or two empty blocks), and of course at the **size**
 that you decided.
 
 you also have to choose your favorite Algorithm the first line- A*, DFID, DFBnB, BFS or IDA*.
